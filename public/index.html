@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>NongYa blood pressure data</title>
+
+
+
+
+
+<!--
+                                --------------------   Hosting -------------------- 
+    -- update the version number as needed --
+    <script defer src="/__/firebase/9.15.0/firebase-app-compat.js"></script>
+    -- include only the Firebase features as you need --
+    <script defer src="/__/firebase/9.15.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.15.0/firebase-performance-compat.js"></script>
+    -- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    --
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+-->
+    
+  </head>
+  <body>
+    <h1>NongYa blood pressure data</h1>
+    <div>
+      <form id="form">
+        <label for="DATE">DATE</label>
+        <input type="date" class="inputform" id="DATE" name="datetime" placeholder="DATE">
+
+        <label for="SYS">SYS</label>
+        <input type="number" class="inputform" id="SYS" name="systolic" placeholder="SYS">
+        
+        <label for="DIA">DIA</label>
+        <input type="number" class="inputform" id="DIA" name="daistolic" placeholder="DIA">
+    
+        <label for="PUL">PUL</label>
+        <input type="number" class="inputform1" id="PUL" name="pulse" placeholder="PUL">
+    
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+    
+      <table>
+        <thead>
+          <th id="out1">วันที่ (Date)</th>
+          <th id="out2">ค่าความดันขณะหัวใจบีบตัว (SYS) /mmHg</th>
+          <th id="out3">ค่าความดันขณะหัวใจคายตัว (DIA) /mmHg</th>
+          <th id="out4">อัตราการเต้นของหัวใจ (PUL) /min</th>
+        </thead>
+        <tbody id="tbody1">
+          <td id="show1"></td>
+          <td id="show2"></td>
+          <td id="show3"></td>
+          <td id="show4"></td>
+        </tbody>
+      </table>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>  <!--Up from app.js -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script> <!--Up from app.js -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>  <!--Up from app.js -->
+    <script src="app.js"></script>
+
+    <script>
+      //import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+      //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+
+      //import{
+       //   getFirestore, doc, getDoc, getDocs, onSnapshot, collection
+      //}
+     // from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+
+   </script>
+
+
+
+
+
+
+
+
+
+
+
+                    <!------------------- - Hosting --------------- ----- >
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>-->
+  </body>
+</html>
